@@ -3,7 +3,49 @@
 @tailwind utilities;
 body {
   font-family: "Satoshi", sans-serif;
+  
+}
+
+.nav{
+  background-color: #0B245B  ;
+  
+  
 }
 .form-box {
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
 }
+/* Add this to your styles */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1; /* Ensure the overlay is on top */
+}
+
+.modal-container {
+  position: relative;
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  z-index: 2; /* Ensure the container is on top of the overlay */
+}
+
+.modal-content {
+  /* Add styles for the content area */
+}
+
