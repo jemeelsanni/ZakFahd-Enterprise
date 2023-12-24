@@ -21,7 +21,10 @@ const Navbar = () => {
   const isHomePage = location.pathname === "/Index"; // Check if the current page is the home page
 
   return (
-    <Sidebar className="pl-5 py-10 h-full fixed text-white nav " style={{ position: "fixed" }}>
+    <Sidebar
+      className="pl-5 py-10 h-full fixed text-white nav "
+      style={{ position: "fixed" }}
+    >
       <Menu className="nav h-full">
         <MenuItem
           icon={<MenuOutlinedIcon />}
@@ -34,7 +37,7 @@ const Navbar = () => {
         </MenuItem>
 
         <MenuItem icon={<HomeOutlinedIcon />}>
-          <Link to="/Index" className="flex gap-3 items-center">
+          <Link to="/dashboard" className="flex gap-3 items-center">
             {" "}
             Dashboard
           </Link>
@@ -42,27 +45,27 @@ const Navbar = () => {
         <SubMenu label="Product" icon={<PeopleOutlinedIcon />}>
           <MenuItem className="nav" icon={<PeopleOutlinedIcon />}>
             <Link to="/addproduct" className="flex gap-3 items-center">
-            {" "}
-            Add Product
-          </Link>
+              {" "}
+              Add Product
+            </Link>
           </MenuItem>
           <MenuItem className="nav" icon={<PeopleOutlinedIcon />}>
             <Link to="/productlist" className="flex gap-3 items-center">
-            {" "}
-            Products List
-          </Link>
+              {" "}
+              Products List
+            </Link>
           </MenuItem>
           <MenuItem className="nav" icon={<PeopleOutlinedIcon />}>
-            
             <Link to="/brand" className="flex gap-3 items-center">
-            {" "}
-            Brand          </Link>
+              {" "}
+              Brand{" "}
+            </Link>
           </MenuItem>
           <MenuItem className="nav" icon={<PeopleOutlinedIcon />}>
             <Link to="/producttype" className="flex gap-3 items-center">
-            {" "}
-            Product Type
-          </Link>
+              {" "}
+              Product Type
+            </Link>
           </MenuItem>
         </SubMenu>
 

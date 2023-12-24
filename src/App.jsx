@@ -5,6 +5,7 @@ import AddProductForm from "./pages/product/AddProduct";
 import ProductList from "./pages/product/ProductList";
 import Sale from "./pages/sale/Sale";
 import SaleList from "./pages/sale/SaleList";
+import Dashboard from "./pages/dashboard/Dashboard";
 
 function App() {
   return (
@@ -14,9 +15,7 @@ function App() {
       <Route path="/productlist" element={<ProductList />} />
       <Route path="/sale" element={<Sale />} />
       <Route path="/transactions" element={<SaleList />} />
-
-
-
+      <Route path="/dashboard" element={<Dashboard />} />
     </Routes>
   );
 }
