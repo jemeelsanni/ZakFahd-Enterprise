@@ -1,11 +1,13 @@
+// ProductList.js
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import UpdateProductFormModal from "./UpdateProductFormModal";
 import Navbar from "../../layout/Sidebar";
 import Header from "../../layout/Header";
-import { mockProducts, mockBrands, mockProductTypes } from "./mock";
-
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
+import {mockProducts, mockBrands, mockProductTypes} from "./mock"
 import {
   Table,
   TableBody,
@@ -16,6 +18,8 @@ import {
   Paper,
   Button,
 } from "@mui/material";
+
+
 
 const ProductList = () => {
   const [products, setProducts] = useState([]);
@@ -74,7 +78,7 @@ const ProductList = () => {
 
   const handleDeleteProduct = async (productId) => {
     try {
-      await axios.delete(`/api/products/${productId}`);
+      // await axios.delete(`/api/products/${productId}`);
       setProducts(products.filter((product) => product._id !== productId));
     } catch (error) {
       console.error("Error deleting product:", error);
@@ -104,23 +108,30 @@ const ProductList = () => {
       <div>
         <Navbar />
       </div>
-      <div className=" w-full pl-64">
+      <div className="w-full pl:2 md:pl-64">
         <Header />
         <div className="p-10">
-          <h2 className="text-2xl font-bold mb-5">Product List</h2>
-          <div className="flex items-center mb-3">
+          <h2 className="text-2xl text-[#0B245B] font-bold mb-5">
+            Product List
+          </h2>
+          <Link to="/addproduct">
+            <button className="text-base font-semibold inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2">
+              Add Product
+            </button>
+          </Link>
+          <br />
+          <br />
+          <div className="flex flex-col md:flex-row gap-2 mb-3">
             <input
               type="text"
               placeholder="Search products"
               value={searchTerm}
               onChange={handleSearchChange}
-              className="mr-3 p-2 w-full outline-none border-[#0B245B6B] border-[1px] bg-[#7198EF30] "
+              className="mr-3 p-2 w-full rounded-md outline-none border-[#0B245B6B] border-[1px] bg-[#7198EF30] "
             />
-            <br />
-            <br />
             <select
               onChange={handleBrandFilterChange}
-              className=" mr-2 outline-none border-[#0B245B6B] border-[1px] bg-[#7198EF30] p-2"
+              className=" mr-2 w-full outline-none rounded-md border-[#0B245B6B] border-[1px] bg-[#7198EF30] p-2"
             >
               <option value="">Filter by Brand</option>
               {brands.map((brand) => (
@@ -131,7 +142,7 @@ const ProductList = () => {
             </select>
             <select
               onChange={handleProductTypeFilterChange}
-              className="mr-2 outline-none border-[#0B245B6B] border-[1px] bg-[#7198EF30] p-2"
+              className="mr-2 w-full outline-none rounded-md border-[#0B245B6B] border-[1px] bg-[#7198EF30] p-2"
             >
               <option value="">Filter by Product Type</option>
               {productTypes.map((type) => (
@@ -141,9 +152,6 @@ const ProductList = () => {
               ))}
             </select>
             <br />
-            <Link to="/addproduct">
-              <Button className="bg-[#80FAFA] p-2">Add Product</Button>
-            </Link>
           </div>
           <TableContainer component={Paper}>
             <Table>
@@ -167,10 +175,10 @@ const ProductList = () => {
                     <TableCell>{product.brand}</TableCell>
                     <TableCell>
                       <Button onClick={() => handleEditProduct(product._id)}>
-                        Edit
+                        <EditIcon/>
                       </Button>
                       <Button onClick={() => handleDeleteProduct(product._id)}>
-                        Delete
+                        <DeleteIcon/>
                       </Button>
                     </TableCell>
                   </TableRow>
@@ -179,6 +187,7 @@ const ProductList = () => {
             </Table>
           </TableContainer>
 
+          {/* Integrate UpdateProductFormModal */}
           <UpdateProductFormModal
             productId={selectedProductId}
             isOpen={isUpdateModalOpen}

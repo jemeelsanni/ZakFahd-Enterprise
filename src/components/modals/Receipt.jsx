@@ -1,5 +1,6 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
+import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
 
 export default function ReceiptModal() {
   let [isOpen, setIsOpen] = useState(false);
@@ -17,7 +18,7 @@ export default function ReceiptModal() {
 
   return (
     <>
-      <button onClick={openModal}>View Receipt</button>
+      <button onClick={openModal}><ReceiptLongIcon/></button>
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={closeModal}>
           <Transition.Child
@@ -52,7 +53,7 @@ export default function ReceiptModal() {
                         alt="Company Logo"
                         className="h-12 w-12"
                       /> */}
-                      <h1>Zakfahd</h1>
+                      <h1 className=" text-xl font-bold">Zakfahd</h1>
                     </div>
 
                     <h2 className="text-center text-lg font-semibold mb-2">

@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import Receipt from "./Receipt";
 import Navbar from "../../layout/Sidebar";
 import Header from "../../layout/Header";
+import ReceiptModal from "../../components/modals/Receipt";
+
 import {
   Table,
   TableBody,
@@ -49,10 +51,10 @@ const SaleList = () => {
       <div className="">
         <Navbar />
       </div>
-      <div className="w-full pl-64 ">
+      <div className="w-full pl:2 md:pl-64 ">
         <Header />
         <div className="p-10 w-full">
-          <h2 className="text-2xl font-bold mb-5">Sale List</h2>
+          <h2 className="text-2xl text-[#0B245B] font-bold mb-5">Transactions</h2>
           <TableContainer component={Paper}>
             <Table>
               <TableHead>
@@ -72,15 +74,13 @@ const SaleList = () => {
                     <TableCell>{sale.customerName}</TableCell>
                     <TableCell>{sale.phoneNumber}</TableCell>
                     <TableCell>Completed</TableCell>
-                    <TableCell>{sale.total}</TableCell>
+                    <TableCell>NGN {sale.total}</TableCell>
                     <TableCell>
                       <div className=" flex gap-4">
-                        <button onClick={() => handleViewReceipt(sale)}>
-                          View Receipt
-                        </button>
-                        <button onClick={handlePrintReceipt}>
+                      <ReceiptModal />
+                        {/* <button onClick={handlePrintReceipt}>
                           Print Receipt
-                        </button>
+                        </button> */}
                       </div>
                     </TableCell>
                   </TableRow>

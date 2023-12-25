@@ -4,6 +4,8 @@ import Navbar from '../../layout/Sidebar';
 import Header from '../../layout/Header';
 import UpdateSaleModal from './UpdateSaleModal';
 import axios from 'axios';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 import {
   Table,
   TableBody,
@@ -159,11 +161,11 @@ const Sales = () => {
         {/* Navbar Component */}
         <Navbar />
       </div>
-      <div className="w-full pl-64">
+      <div className="w-full pl:2 md:pl-64">
         {/* Header Component */}
         <Header />
         <div className="p-10">
-          <h2 className="text-2xl font-bold mb-5">Sales</h2>
+          <h2 className="text-2xl text-[#0B245B] font-bold mb-5">Sales</h2>
           <form>
             <label className="flex flex-col">
               Date:
@@ -269,21 +271,21 @@ const Sales = () => {
                         {sale.quantity}
                         <Button onClick={() => handleQuantityChange('add', index)}>+</Button>
                       </TableCell>
-                      <TableCell>${sale.subtotal}</TableCell>
+                      <TableCell>NGN {sale.subtotal}</TableCell>
                       <TableCell>
-                        <Button onClick={() => handleEditSale(sale)}>Edit</Button>
-                        <Button onClick={() => handleDeleteSale(index)}>Delete</Button>
+                        <Button onClick={() => handleEditSale(sale)}><EditIcon/></Button>
+                        <Button onClick={() => handleDeleteSale(index)}><DeleteIcon/></Button>
                       </TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
               </Table>
             </TableContainer>
-            <p className=' text-right mr-12 mt-10 text-lg font-semibold'>Total Sales: ${totalSales}</p>
+            <p className=' text-right mr-12 mt-10 text-lg font-semibold'>Total Sales: NGN {totalSales}</p>
           </div>
           {/* UpdateSaleModal Component */}
           <UpdateSaleModal isOpen={isUpdateModalOpen} onClose={() => setIsUpdateModalOpen(false)} sale={selectedSale} onUpdateSale={handleUpdateSale} />
-          <button className="bg-[#80FAFA] p-2" onClick={handleSubmitSales}>
+          <button className="text-base font-semibold inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2" onClick={handleSubmitSales}>
             Submit 
           </button>
         </div>

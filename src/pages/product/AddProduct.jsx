@@ -43,10 +43,10 @@ const AddProductForm = ({ onAddProduct }) => {
     <div>
       <Navbar />
     </div>
-    <div className=" w-full pl-64">
+    <div className=" w-full pl:2 md:pl-64">
       <Header />
       <div className="p-10 w-full">
-    <h2 className="text-2xl font-bold mb-5">Add Product</h2>
+    <h2 className="text-2xl text-[#0B245B] font-bold mb-5">Add Product</h2>
     <form onSubmit={handleSubmit}>
       <label className='flex flex-col'>
         Product Name:
@@ -115,7 +115,7 @@ const AddProductForm = ({ onAddProduct }) => {
           </select>
         </label>
         <br />
-        <button className='bg-[#80FAFA] p-2' type="submit">Add Product</button>
+        <button className='text-base font-semibold inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2' type="submit">Add Product</button>
       </form>
     </div>
     </div>

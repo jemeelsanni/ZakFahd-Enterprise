@@ -13,7 +13,6 @@ import {
   TableRow,
   Paper,
 } from "@mui/material";
-import Receipt from "../sale/Receipt";
 import ReceiptModal from "../../components/modals/Receipt";
 const Dashboard = () => {
   const [sales, setSales] = useState([]);
@@ -34,7 +33,7 @@ const Dashboard = () => {
         ],
       },
       {
-        id: 1,
+        id: 2,
         date: "2023-01-01",
         customerName: "John Doe",
         phoneNumber: "09068922344",
@@ -46,7 +45,7 @@ const Dashboard = () => {
         ],
       },
       {
-        id: 1,
+        id: 3,
         date: "2023-01-01",
         customerName: "John Doe",
         phoneNumber: "09068922344",
@@ -58,7 +57,7 @@ const Dashboard = () => {
         ],
       },
       {
-        id: 1,
+        id: 4,
         date: "2023-01-01",
         customerName: "John Doe",
         phoneNumber: "09068922344",
@@ -86,7 +85,7 @@ const Dashboard = () => {
       <div>
         <Navbar />
       </div>
-      <div className=" w-full pl-64">
+      <div className=" w-full pl:2 md:pl-64">
         <Header />
         <div className="w-full bg-gray-200 py-[15px] ">
           <div className="flex mt-[20px] flex-col gap-y-[30px]">
@@ -128,7 +127,7 @@ const Dashboard = () => {
             </div>
             <div className="w-full max-w-[95%]  mx-auto">
               <div className=" w-full">
-                <h2 className="text-2xl font-bold mb-5">Sale List</h2>
+                <h2 className="text-2xl font-bold mb-5">Transactions</h2>
                 <TableContainer component={Paper}>
                   <Table>
                     <TableHead>
@@ -148,13 +147,13 @@ const Dashboard = () => {
                           <TableCell>{sale.customerName}</TableCell>
                           <TableCell>{sale.phoneNumber}</TableCell>
                           <TableCell>Completed</TableCell>
-                          <TableCell>{sale.total}</TableCell>
+                          <TableCell>NGN {sale.total}</TableCell>
                           <TableCell>
                             <div className=" flex gap-4">
                               <ReceiptModal />
-                              <button onClick={() => handleViewReceipt(sale)}>
+                              {/* <button onClick={() => handleViewReceipt(sale)}>
                                 Print Receipt
-                              </button>
+                              </button> */}
                             </div>
                           </TableCell>
                         </TableRow>
