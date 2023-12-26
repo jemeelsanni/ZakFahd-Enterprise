@@ -22,6 +22,7 @@ const Dashboard = () => {
   const [sales, setSales] = useState([]);
   const [selectedSale, setSelectedSale] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [isLoading2, setIsLoading2] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [brandAnalysis, setbrandAnalysis] = useState([]);
   const [totalProducts, settotalProducts] = useState({});
@@ -65,7 +66,7 @@ const Dashboard = () => {
     }
   };
   const getDashboardAnalysis = async () => {
-    setIsLoading(true);
+    setIsLoading2(true);
     const token = Cookie.get("accessToken");
     try {
       const response = await axios.get(
@@ -87,7 +88,7 @@ const Dashboard = () => {
     } catch (error) {
       console.log(error);
     } finally {
-      setIsLoading(false);
+      setIsLoading2(false);
     }
   };
   function formatDate(dateString) {
@@ -114,7 +115,7 @@ const Dashboard = () => {
       </div>
       <div className=" w-full pl:2 md:pl-64">
         <Header />
-        {!isLoading ? (
+        {!isLoading2 ? (
           <div className="w-full bg-gray-200 py-[15px] ">
             <div className="flex mt-[20px] flex-col gap-y-[30px]">
               <div className="w-full max-w-[95%] mx-auto grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-[14px]">
