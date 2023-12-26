@@ -8,8 +8,7 @@ import AddCommentIcon from "@mui/icons-material/AddComment";
 import profile from "../assets/images/profile.png";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
-import LogoutIcon from '@mui/icons-material/Logout';
-
+import LogoutIcon from "@mui/icons-material/Logout";
 
 const Header = () => {
   const location = useLocation();
@@ -20,7 +19,7 @@ const Header = () => {
       {open && (
         <>
           <div className="absolute h-screen w-3/4 ">
-            <div className="fixed w-3/4 h-screen text-white  bg-[#0B245B] p-6">
+            <div className="fixed w-3/4 h-screen text-white z-[9999]  bg-[#0B245B] p-6">
               <div className="flex flex-row justify-between">
                 <p className="text-lg font-semibold">ZakFahd Enterprise</p>
                 <div onClick={() => setOpen(false)}>
@@ -100,8 +99,13 @@ const Header = () => {
                     </Link>
                   </li>
                 </ol>
-                <button className=' absolute bottom-16 flex gap-3 text-base font-semibold items-center'><Link to="/" className="flex gap-3"> <LogoutIcon/>Logout</Link> </button>
-
+                <button className=" absolute bottom-16 flex gap-3 text-base font-semibold items-center">
+                  <Link to="/" className="flex gap-3">
+                    {" "}
+                    <LogoutIcon />
+                    Logout
+                  </Link>{" "}
+                </button>
               </div>
             </div>
           </div>

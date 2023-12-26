@@ -3,13 +3,10 @@
 @tailwind utilities;
 body {
   font-family: "Satoshi", sans-serif;
-  
 }
 
-.nav{
-  background-color: #0B245B  ;
-  
-  
+.nav {
+  background-color: #0b245b;
 }
 .form-box {
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
@@ -49,3 +46,17 @@ body {
   /* Add styles for the content area */
 }
 
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  .printable,
+  .printable * {
+    visibility: visible;
+  }
+  .printable {
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+}

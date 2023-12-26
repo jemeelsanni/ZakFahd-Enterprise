@@ -5,9 +5,12 @@ import { Link } from "react-router-dom";
 import UpdateProductFormModal from "./UpdateProductFormModal";
 import Navbar from "../../layout/Sidebar";
 import Header from "../../layout/Header";
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
-import {mockProducts, mockBrands, mockProductTypes} from "./mock"
+import EditIcon from "@mui/icons-material/Edit";
+import Cookie from "js-cookie";
+import DeleteIcon from "@mui/icons-material/Delete";
+import { mockProducts, mockBrands, mockProductTypes } from "./mock";
+import { Pagination } from "@mui/material";
+import { ClipLoader } from "react-spinners";
 import {
   Table,
   TableBody,
@@ -18,8 +21,7 @@ import {
   Paper,
   Button,
 } from "@mui/material";
-
-
+import EditProductModal from "../../components/modals/EditProduct";
 
 const ProductList = () => {
   const [products, setProducts] = useState([]);
@@ -30,7 +32,9 @@ const ProductList = () => {
   const [filterProductType, setFilterProductType] = useState("");
   const [selectedProductId, setSelectedProductId] = useState(null);
   const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
-
+  const [isLoading, setIsLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(2);
   useEffect(() => {
     // axios
     //   .get("/api/products")
@@ -47,16 +51,48 @@ const ProductList = () => {
     //   .then((response) => setProductTypes(response.data))
     //   .catch((error) => console.error("Error fetching product types:", error));
 
-    setProducts(mockProducts);
+    // setProducts(mockProducts);
+    // setBrands(mockBrands);
+    // setProductTypes(mockProductTypes);
+    getAllProducts();
     setBrands(mockBrands);
     setProductTypes(mockProductTypes);
-  }, []);
+  }, [currentPage, searchTerm, filterBrand, filterProductType]);
+  const getAllProducts = async () => {
+    setIsLoading(true);
+    const token = Cookie.get("accessToken");
+    try {
+      const response = await axios.get(
+        // eslint-disable-next-line no-undef
+        `${process.env.ENV_BACKEND_URL}/api/v1/product?limit=10&page=${currentPage}&search_query=${searchTerm}&brand=${filterBrand}&type=${filterProductType}`,
 
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      console.log(response);
+      setProducts(response.data.data.products);
+      const totalProducts = Number(
+        response.data.data.count.totalnumberofproducts
+      );
+      const pages = Math.ceil(totalProducts / 10);
+      setTotalPages(pages);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+  const handlePageChange = (event, value) => {
+    setCurrentPage(value);
+  };
   const handleSearchChange = (e) => {
+    console.log(searchTerm);
     const term = e.target.value.toLowerCase();
     setSearchTerm(term);
   };
-
   const handleBrandFilterChange = (e) => {
     const selectedBrand = e.target.value;
     setFilterBrand(selectedBrand);
@@ -66,43 +102,6 @@ const ProductList = () => {
     const selectedProductType = e.target.value;
     setFilterProductType(selectedProductType);
   };
-
-  const filteredProducts = products.filter((product) => {
-    const matchesSearch = product.name.toLowerCase().includes(searchTerm);
-    const matchesBrand = !filterBrand || product.brand === filterBrand;
-    const matchesProductType =
-      !filterProductType || product.productType === filterProductType;
-
-    return matchesSearch && matchesBrand && matchesProductType;
-  });
-
-  const handleDeleteProduct = async (productId) => {
-    try {
-      // await axios.delete(`/api/products/${productId}`);
-      setProducts(products.filter((product) => product._id !== productId));
-    } catch (error) {
-      console.error("Error deleting product:", error);
-    }
-  };
-
-  const handleEditProduct = (productId) => {
-    setSelectedProductId(productId);
-    setIsUpdateModalOpen(true);
-  };
-
-  const handleCloseModal = () => {
-    setIsUpdateModalOpen(false);
-    setSelectedProductId(null);
-  };
-
-  const handleUpdateProduct = (updatedProduct) => {
-    setProducts((prevProducts) =>
-      prevProducts.map((product) =>
-        product._id === updatedProduct._id ? updatedProduct : product
-      )
-    );
-  };
-
   return (
     <div className="flex">
       <div>
@@ -153,47 +152,74 @@ const ProductList = () => {
             </select>
             <br />
           </div>
-          <TableContainer component={Paper}>
-            <Table>
-              <TableHead>
-                <TableRow>
-                  <TableCell>Product Name</TableCell>
-                  <TableCell>Product Type</TableCell>
-                  <TableCell>Product Price</TableCell>
-                  <TableCell>Stock Alert</TableCell>
-                  <TableCell>Brand</TableCell>
-                  <TableCell>Action</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {filteredProducts.map((product) => (
-                  <TableRow key={product._id}>
-                    <TableCell>{product.name}</TableCell>
-                    <TableCell>{product.productType}</TableCell>
-                    <TableCell>${product.price}</TableCell>
-                    <TableCell>{product.stockAlert}</TableCell>
-                    <TableCell>{product.brand}</TableCell>
-                    <TableCell>
-                      <Button onClick={() => handleEditProduct(product._id)}>
-                        <EditIcon/>
+          <div>
+            {isLoading ? (
+              <div className="mt-[20px]">
+                <ClipLoader />
+              </div>
+            ) : products.length > 0 ? (
+              <>
+                {" "}
+                <TableContainer component={Paper}>
+                  <Table>
+                    <TableHead>
+                      <TableRow>
+                        <TableCell>Product Name</TableCell>
+                        <TableCell>Product Type</TableCell>
+                        <TableCell>Product Price</TableCell>
+                        <TableCell>Stock Alert</TableCell>
+                        <TableCell>Brand</TableCell>
+                        <TableCell>Action</TableCell>
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      {products.map((product) => (
+                        <TableRow key={product._id}>
+                          <TableCell>{product.name}</TableCell>
+                          <TableCell>{product.type}</TableCell>
+                          <TableCell>${product.price}</TableCell>
+                          <TableCell>{product.quantity}</TableCell>
+                          <TableCell>{product.brand}</TableCell>
+                          <TableCell>
+                            <EditProductModal
+                              product={product}
+                              getAllProducts={getAllProducts}
+                            />
+                            {/* <Button onClick={() => handleEditProduct(product._id)}>
+                        <EditIcon />
                       </Button>
                       <Button onClick={() => handleDeleteProduct(product._id)}>
-                        <DeleteIcon/>
-                      </Button>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
+                        <DeleteIcon />
+                      </Button> */}
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </TableContainer>
+                <div className="mt-[10px]">
+                  <Pagination
+                    count={totalPages}
+                    page={currentPage}
+                    onChange={handlePageChange}
+                    color="primary"
+                  />
+                </div>
+              </>
+            ) : (
+              <div className="text-center mt-5">
+                <span className="text-xl">No products found</span>
+              </div>
+            )}
+          </div>
 
           {/* Integrate UpdateProductFormModal */}
-          <UpdateProductFormModal
+          {/* <UpdateProductFormModal
             productId={selectedProductId}
             isOpen={isUpdateModalOpen}
             onRequestClose={handleCloseModal}
             onUpdateProduct={handleUpdateProduct}
-          />
+          /> */}
         </div>
       </div>
     </div>

@@ -1,14 +1,17 @@
+/* eslint-disable react/prop-types */
 import React from "react";
 import { Doughnut } from "react-chartjs-2";
 import "chart.js/auto";
 
-const DoughnutChart = () => {
+const DoughnutChart = ({ brandAnalysis }) => {
+  console.log(brandAnalysis);
+  console.log(brandAnalysis?.map((x) => Number(x.totalproductsperbrand)));
   const data = {
-    labels: ["Red", "Blue", "Yellow"],
+    labels: brandAnalysis?.map((x) => x.brand),
     datasets: [
       {
-        label: "# of Votes",
-        data: [12, 19, 3],
+        label: "Number",
+        data: brandAnalysis?.map((x) => Number(x.totalproductsperbrand)),
         backgroundColor: [
           "rgba(255, 99, 132, 0.2)",
           "rgba(54, 162, 235, 0.2)",
