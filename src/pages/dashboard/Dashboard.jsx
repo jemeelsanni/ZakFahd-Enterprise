@@ -184,7 +184,7 @@ const Dashboard = () => {
                                   <TableCell>{sale.customer_name}</TableCell>
                                   <TableCell>{sale.phone_number}</TableCell>
                                   <TableCell>Completed</TableCell>
-                                  <TableCell>NGN {sale.total_price}</TableCell>
+                                  <TableCell><span>&#8358;</span>{sale.total_price}</TableCell>
                                   <TableCell>
                                     <div className=" flex gap-4">
                                       <ReceiptModal sale={sale} />

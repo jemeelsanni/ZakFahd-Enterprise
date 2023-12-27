@@ -116,7 +116,7 @@ const Header = () => {
           <MenuIcon />
         </div>
         <h3 className=" text-2xl font-semibold hidden md:block">
-          ZakFahd Enterprises
+          ZakFahd Enterprise
         </h3>
         <div className="flex flex-row items-center  gap-4">
           <img

@@ -36,24 +36,6 @@ const ProductList = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(2);
   useEffect(() => {
-    // axios
-    //   .get("/api/products")
-    //   .then((response) => setProducts(response.data))
-    //   .catch((error) => console.error("Error fetching products:", error));
-
-    // axios
-    //   .get("/api/brands")
-    //   .then((response) => setBrands(response.data))
-    //   .catch((error) => console.error("Error fetching brands:", error));
-
-    // axios
-    //   .get("/api/productTypes")
-    //   .then((response) => setProductTypes(response.data))
-    //   .catch((error) => console.error("Error fetching product types:", error));
-
-    // setProducts(mockProducts);
-    // setBrands(mockBrands);
-    // setProductTypes(mockProductTypes);
     getAllProducts();
     setBrands(mockBrands);
     setProductTypes(mockProductTypes);
@@ -63,7 +45,6 @@ const ProductList = () => {
     const token = Cookie.get("accessToken");
     try {
       const response = await axios.get(
-        // eslint-disable-next-line no-undef
         `${process.env.ENV_BACKEND_URL}/api/v1/product?limit=10&page=${currentPage}&search_query=${searchTerm}&brand=${filterBrand}&type=${filterProductType}`,
 
         {
@@ -177,7 +158,7 @@ const ProductList = () => {
                         <TableRow key={product._id}>
                           <TableCell>{product.name}</TableCell>
                           <TableCell>{product.type}</TableCell>
-                          <TableCell>${product.price}</TableCell>
+                          <TableCell><span>&#8358;</span>{product.price}</TableCell>
                           <TableCell>{product.quantity}</TableCell>
                           <TableCell>{product.brand}</TableCell>
                           <TableCell>
@@ -187,8 +168,8 @@ const ProductList = () => {
                             />
                             {/* <Button onClick={() => handleEditProduct(product._id)}>
                         <EditIcon />
-                      </Button>
-                      <Button onClick={() => handleDeleteProduct(product._id)}>
+                      </Button> */}
+                      {/* <Button onClick={() => handleDeleteProduct(product._id)}>
                         <DeleteIcon />
                       </Button> */}
                           </TableCell>

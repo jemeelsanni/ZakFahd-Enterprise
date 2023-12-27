@@ -79,9 +79,12 @@ export default function ReceiptModal({ sale }) {
             <div className="flex min-h-full items-center justify-center p-4 text-center">
               {/* ... other Transition.Child components */}
               <Dialog.Panel className=" printable w-full max-w-lg transform overflow-hidden rounded-lg bg-white p-6 text-left align-middle  transition-all">
-                <div className="w-full">
-                  <h1 className="text-xl font-bold text-center mb-4">
-                    Receipt
+                <div className="w-full align-middle">
+                  <h1 className="text-xl font-bold text-center mb-1">
+                    ZakFahd Enterprise
+                  </h1>
+                  <h1 className="text-lg font-semibold text-center mb-4">
+                    Customer Invoice
                   </h1>
                   <div className="mb-4">
                     <p className="text-sm">
@@ -103,7 +106,7 @@ export default function ReceiptModal({ sale }) {
                     {items.map((item, index) => {
                       return (
                         <div key={index} className="flex flex-col ">
-                          <h1 className="text-[18px] font-semibold">Item</h1>
+                          <h1 className="text-[18px] font-semibold">{item.name}</h1>
                           <div className="]">
                             <p className="text-sm">
                               <strong>Chasis Number:</strong>{" "}
@@ -129,15 +132,15 @@ export default function ReceiptModal({ sale }) {
                   {/* Total amount */}
                   <div className="text-sm font-semibold">
                     <p>
-                      <strong>Total:</strong> ${sale.total_price}
+                      <strong>Total:</strong> <span>&#8358;</span>{sale.total_price}
                     </p>
                   </div>
 
                   {/* Footer information */}
                   <div className="text-center text-xs text-gray-600 mt-4">
                     <p>Thank you for your purchase!</p>
-                    <p>Company Name</p>
-                    <p>Address, City, ZIP</p>
+                    <p>Zakfahd Enterprise</p>
+                    <p>Gbasoro Road, Gbesare, beside Islamiya Primary School, Kaiama, Kwara State.</p>
                   </div>
 
                   <button

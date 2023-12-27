@@ -1,4 +1,3 @@
-// Sales.js
 import React, { useState, useEffect } from "react";
 import Navbar from "../../layout/Sidebar";
 import Header from "../../layout/Header";
@@ -172,7 +171,7 @@ const Sales = () => {
       );
       return response.data.data.products.map((product) => ({
         value: product.slug,
-        label: `${product.name} - $${product.price}`,
+        label: `${product.name}`,
       }));
     } catch (error) {
       console.error("Error fetching products:", error);
@@ -345,7 +344,7 @@ const Sales = () => {
                   {sales.map((sale, index) => (
                     <TableRow key={index}>
                       <TableCell>{sale.product}</TableCell>
-                      <TableCell>NGN {sale.price}</TableCell>
+                      <TableCell><span>&#8358;</span>{sale.price}</TableCell>
                       <TableCell>
                         <Button
                           onClick={() =>
@@ -361,7 +360,7 @@ const Sales = () => {
                           +
                         </Button>
                       </TableCell>
-                      <TableCell>NGN {sale.subtotal}</TableCell>
+                      <TableCell><span>&#8358;</span>{sale.subtotal}</TableCell>
                       <TableCell>
                         <Button onClick={() => handleDeleteSale(index)}>
                           <DeleteIcon />
@@ -376,7 +375,7 @@ const Sales = () => {
               </Table>
             </TableContainer>
             <p className=" text-right mr-12 mt-10 text-lg font-semibold">
-              Total Sales: NGN {totalSales}
+              Total Sales: <span>&#8358;</span>{totalSales}
             </p>
           </div>
           {/* UpdateSaleModal Component */}
